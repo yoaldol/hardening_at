@@ -2,34 +2,7 @@
 #  Installing and Maintaining Software
 #   Account and Access Control
 #    System Accounting with auditd
-#     AppArmor
 
-#Root needed
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-  exit
-fi
-
-#!/bin/bash
-mkdir OSHardeningLogs
-
-#System update date & Instalations
-echo "${yellow}Would you like to update your system and tools? (y/n)${reset}"
-read foo
-if [ "$foo" = "y" ]; then
-apt-get clean
-apt-get update
-apt-get upgrade -y
-apt-get dist-upgrade -y
-apt-get install chkrootkit
-apt-get install lynis
-apt-get -f install
-apt-get install lynis
-apt-get install rkhunter
-rkhunter --update
-sudo apt-get install ufw
-apt-get autoremove
-fi
 
 # Install AIDE
 # Remediation is applicable only in certain platforms
