@@ -126,8 +126,7 @@ if dpkg-query --show --showformat='${db:Status-Status}\n' 'gdm3' 2>/dev/null | g
 # Check for setting in any of the DConf db directories
 # If files contain ibus or distro, ignore them.
 # The assignment assumes that individual filenames don't contain :
-readarray -t SETTINGSFILES < <(grep -r "\\[org/gnome/login-screen\\]" "/etc/dconf/db/" \
-                                | grep -v 'distro\|ibus\|gdm.d' | cut -d":" -f1)
+readarray -t SETTINGSFILES < <(grep -r "\\[org/gnome/login-screen\\]" "/etc/dconf/db/" | grep -v 'distro\|ibus\|gdm.d' | cut -d":" -f1)
 DCONFFILE="/etc/dconf/db/gdm.d/00-security-settings"
 DBDIR="/etc/dconf/db/gdm.d"
 
