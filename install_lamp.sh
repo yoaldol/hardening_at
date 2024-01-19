@@ -3,7 +3,7 @@ echo "============================================"
 echo "Install Lemp stack with bash"
 echo "============================================"
 #echo "Add repo PPA for PHP 7.4"
-sudo apt install software-properties-common 
+#sudo apt install software-properties-common 
 #sudo add-apt-repository ppa:ondrej/php
 echo "update"
 apt-get udpate -y
@@ -30,9 +30,9 @@ echo "============================================"
 echo "Create database & user for wordpress"
 echo "============================================"
 #variable database
-user="wp_user"
-pass="wordpress123513"
-dbname="wp_db"
+user="atuser"
+pass="Laotranube.01"
+dbname="atdb"
 echo "create db name"
 mysql -e "CREATE DATABASE $dbname;"
 echo "Creating new user..."
@@ -43,14 +43,14 @@ mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$user'@'%';"
 mysql -e "FLUSH PRIVILEGES;"
 echo "Success :)"
 echo "============================================"
-echo "Install WordPress menggunakan Bash Script   "
+echo "Install WordPress"
 echo "============================================"
 #download wordpress
 curl -O https://wordpress.org/latest.tar.gz
 #unzip wordpress
 tar -zxvf latest.tar.gz
 #Change owner & chmod
-chown -R www-data:www-data wordpress/
+chown -R atuser:atuser wordpress/
 chmod -R 755 wordpress/
 #change dir to wordpress
 cd wordpress
@@ -76,19 +76,19 @@ chmod 775 wp-content/uploads
 #Create VirtualHost apache2 for wordpress
 touch /etc/apache2/sites-available/wordpress.conf
 cat > /etc/apache2/sites-available/wordpress.conf <<EOF
-<VirtualHost *:80>
-    ServerAdmin admin@rodpres.online
-    ServerName $your_domain
-    # ServerAlias 
-    DocumentRoot /home/oprek/wordpress
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-<Directory /home/oprek/wordpress/>
-        Options Indexes FollowSymLinks
-        AllowOverride None
-        Require all granted
-</Directory>
-</VirtualHost>
+<virtualhost>
+   DocumentRoot /srv/www/wordpress
+   <directory>
+      Options FollowSymLinks
+      AllowOverride Limit Options FileInfo
+      DirectoryIndex index.php
+      Require all granted
+   </directory>
+   <directory>
+      Options FollowSymLinks
+      Require all granted
+   </directory>
+</virtualhost>
 EOF
 #enable apache2
 a2ensite wordpress.conf
@@ -97,9 +97,9 @@ a2dissite 000-default.conf
 systemctl restart apache2
 echo "Restart service Apache2"
 systemctl restart apache2
-echo "SSL generate with certbot"
-apt install certbot python3-certbot-apache -y
-certbot run -n --apache --agree-tos -d wp.igunawan.com -m admin@igunawan.com  --redirect
+#echo "SSL generate with certbot"
+#apt install certbot python3-certbot-apache -y
+#certbot run -n --apache --agree-tos -d wp.igunawan.com -m admin@igunawan.com  --redirect
 echo "========================="
 echo "Installation is complete."
 echo "=========================" 
