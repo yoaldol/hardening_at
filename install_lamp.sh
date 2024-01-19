@@ -76,19 +76,19 @@ chmod 775 wp-content/uploads
 #Create VirtualHost apache2 for wordpress
 touch /etc/apache2/sites-available/wordpress.conf
 cat > /etc/apache2/sites-available/wordpress.conf <<EOF
-<virtualhost>
-   DocumentRoot /srv/www/wordpress
-   <directory>
-      Options FollowSymLinks
-      AllowOverride Limit Options FileInfo
-      DirectoryIndex index.php
-      Require all granted
-   </directory>
-   <directory>
-      Options FollowSymLinks
-      Require all granted
-   </directory>
-</virtualhost>
+<VirtualHost *:80>
+    ServerAdmin admin@rodpres.online
+    ServerName $your_domain
+    # ServerAlias 
+    DocumentRoot /home/oprek/wordpress
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+<Directory /home/oprek/wordpress/>
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+</Directory>
+</VirtualHost>
 EOF
 #enable apache2
 a2ensite wordpress.conf
