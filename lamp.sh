@@ -7,11 +7,11 @@
 
 # TODO: Consider prompting for all of these settings:
 # apache settings
-DOMAIN=your_domain.com
+#DOMAIN=at.com
 
 # ssh user settings
-USER=your_ssh_username
-PASS=your_ssh_password
+#USER=your_ssh_username
+#PASS=your_ssh_password
 
 # mysql settings
 DB_ROOT_PASS=your_mysql_root_pass
